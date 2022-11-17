@@ -1,8 +1,8 @@
-# Install script for directory: /home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_navigation
+# Install script for directory: /home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_navigation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/lab/wang_ws/interbotix_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/lab/wang_ws/world_reader/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,26 +38,26 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_navigation/catkin_generated/installspace/arlo_navigation.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_navigation/catkin_generated/installspace/arlo_navigation.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arlo_navigation/cmake" TYPE FILE FILES
-    "/home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_navigation/catkin_generated/installspace/arlo_navigationConfig.cmake"
-    "/home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_navigation/catkin_generated/installspace/arlo_navigationConfig-version.cmake"
+    "/home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_navigation/catkin_generated/installspace/arlo_navigationConfig.cmake"
+    "/home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_navigation/catkin_generated/installspace/arlo_navigationConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arlo_navigation" TYPE FILE FILES "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_navigation/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arlo_navigation" TYPE FILE FILES "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_navigation/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arlo_navigation" TYPE DIRECTORY FILES
-    "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_navigation/launch"
-    "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_navigation/maps"
-    "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_navigation/param"
-    "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_navigation/rviz"
+    "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_navigation/launch"
+    "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_navigation/maps"
+    "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_navigation/param"
+    "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_navigation/rviz"
     )
 endif()
 

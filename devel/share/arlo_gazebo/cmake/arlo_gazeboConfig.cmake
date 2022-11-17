@@ -67,14 +67,14 @@ set(arlo_gazebo_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(arlo_gazebo_SOURCE_PREFIX /home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo)
-  set(arlo_gazebo_DEVEL_PREFIX /home/lab/wang_ws/interbotix_ws/devel)
+  set(arlo_gazebo_SOURCE_PREFIX /home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo)
+  set(arlo_gazebo_DEVEL_PREFIX /home/lab/wang_ws/world_reader/devel)
   set(arlo_gazebo_INSTALL_PREFIX "")
   set(arlo_gazebo_PREFIX ${arlo_gazebo_DEVEL_PREFIX})
 else()
   set(arlo_gazebo_SOURCE_PREFIX "")
   set(arlo_gazebo_DEVEL_PREFIX "")
-  set(arlo_gazebo_INSTALL_PREFIX /home/lab/wang_ws/interbotix_ws/install)
+  set(arlo_gazebo_INSTALL_PREFIX /home/lab/wang_ws/world_reader/install)
   set(arlo_gazebo_PREFIX ${arlo_gazebo_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(arlo_gazebo_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo/include;/usr/include;/usr/include/gazebo-9;/usr/include/bullet;/usr/include/simbody;/usr/include/sdformat-6.0;/usr/include/ignition/math4;/usr/include/OGRE;/usr/include/OGRE/Terrain;/usr/include/OGRE/Paging;/usr/include/ignition/transport4;/usr/include/ignition/msgs1;/usr/include/ignition/common1;/usr/include/ignition/fuel_tools1 " STREQUAL " ")
+if(NOT "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo/include;/usr/include;/usr/include/gazebo-9;/usr/include/bullet;/usr/include/simbody;/usr/include/sdformat-6.0;/usr/include/ignition/math4;/usr/include/OGRE;/usr/include/OGRE/Terrain;/usr/include/OGRE/Paging;/usr/include/ignition/transport4;/usr/include/ignition/msgs1;/usr/include/ignition/common1;/usr/include/ignition/fuel_tools1 " STREQUAL " ")
   set(arlo_gazebo_INCLUDE_DIRS "")
-  set(_include_dirs "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo/include;/usr/include;/usr/include/gazebo-9;/usr/include/bullet;/usr/include/simbody;/usr/include/sdformat-6.0;/usr/include/ignition/math4;/usr/include/OGRE;/usr/include/OGRE/Terrain;/usr/include/OGRE/Paging;/usr/include/ignition/transport4;/usr/include/ignition/msgs1;/usr/include/ignition/common1;/usr/include/ignition/fuel_tools1")
+  set(_include_dirs "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo/include;/usr/include;/usr/include/gazebo-9;/usr/include/bullet;/usr/include/simbody;/usr/include/sdformat-6.0;/usr/include/ignition/math4;/usr/include/OGRE;/usr/include/OGRE/Terrain;/usr/include/OGRE/Paging;/usr/include/ignition/transport4;/usr/include/ignition/msgs1;/usr/include/ignition/common1;/usr/include/ignition/fuel_tools1")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo/in
         message(FATAL_ERROR "Project 'arlo_gazebo' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'arlo_gazebo' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'arlo_gazebo' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo/${idir}'.  ${_report}")
     endif()
     _list_append_unique(arlo_gazebo_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/lab/wang_ws/interbotix_ws/devel/lib;/home/lab/realsense_ws/devel/lib;/home/lab/fetch_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/lab/wang_ws/world_reader/devel/lib;/home/lab/realsense_ws/devel/lib;/home/lab/fetch_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

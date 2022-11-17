@@ -1,4 +1,4 @@
-prefix=/home/lab/wang_ws/interbotix_ws/devel
+prefix=/home/lab/wang_ws/world_reader/devel
 
 Name: arlo_navigation
 Description: Description of arlo_navigation

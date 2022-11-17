@@ -1,8 +1,8 @@
-# Install script for directory: /home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo_description
+# Install script for directory: /home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo_description
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/lab/wang_ws/interbotix_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/lab/wang_ws/world_reader/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,25 +38,25 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo_description/catkin_generated/installspace/arlo_gazebo_description.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo_description/catkin_generated/installspace/arlo_gazebo_description.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arlo_gazebo_description/cmake" TYPE FILE FILES
-    "/home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo_description/catkin_generated/installspace/arlo_gazebo_descriptionConfig.cmake"
-    "/home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo_description/catkin_generated/installspace/arlo_gazebo_descriptionConfig-version.cmake"
+    "/home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo_description/catkin_generated/installspace/arlo_gazebo_descriptionConfig.cmake"
+    "/home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo_description/catkin_generated/installspace/arlo_gazebo_descriptionConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arlo_gazebo_description" TYPE FILE FILES "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo_description/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arlo_gazebo_description" TYPE FILE FILES "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo_description/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arlo_gazebo_description" TYPE DIRECTORY FILES
-    "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo_description/meshes"
-    "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo_description/rviz"
-    "/home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo_description/urdf"
+    "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo_description/meshes"
+    "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo_description/rviz"
+    "/home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo_description/urdf"
     )
 endif()
 

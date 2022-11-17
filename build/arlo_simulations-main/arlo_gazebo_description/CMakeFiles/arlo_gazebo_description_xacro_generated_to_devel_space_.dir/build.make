@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lab/wang_ws/interbotix_ws/src
+CMAKE_SOURCE_DIR = /home/lab/wang_ws/world_reader/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lab/wang_ws/interbotix_ws/build
+CMAKE_BINARY_DIR = /home/lab/wang_ws/world_reader/build
 
 # Utility rule file for arlo_gazebo_description_xacro_generated_to_devel_space_.
 
@@ -63,10 +63,10 @@ arlo_simulations-main/arlo_gazebo_description/CMakeFiles/arlo_gazebo_description
 .PHONY : arlo_simulations-main/arlo_gazebo_description/CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/build
 
 arlo_simulations-main/arlo_gazebo_description/CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/clean:
-	cd /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo_description && $(CMAKE_COMMAND) -P CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/cmake_clean.cmake
+	cd /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo_description && $(CMAKE_COMMAND) -P CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/cmake_clean.cmake
 .PHONY : arlo_simulations-main/arlo_gazebo_description/CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/clean
 
 arlo_simulations-main/arlo_gazebo_description/CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/depend:
-	cd /home/lab/wang_ws/interbotix_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lab/wang_ws/interbotix_ws/src /home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo_description /home/lab/wang_ws/interbotix_ws/build /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo_description /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo_description/CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lab/wang_ws/world_reader/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lab/wang_ws/world_reader/src /home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo_description /home/lab/wang_ws/world_reader/build /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo_description /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo_description/CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : arlo_simulations-main/arlo_gazebo_description/CMakeFiles/arlo_gazebo_description_xacro_generated_to_devel_space_.dir/depend
 

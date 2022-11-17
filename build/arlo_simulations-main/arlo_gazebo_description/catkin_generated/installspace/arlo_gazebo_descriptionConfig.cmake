@@ -67,14 +67,14 @@ set(arlo_gazebo_description_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(arlo_gazebo_description_SOURCE_PREFIX /home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo_description)
-  set(arlo_gazebo_description_DEVEL_PREFIX /home/lab/wang_ws/interbotix_ws/devel)
+  set(arlo_gazebo_description_SOURCE_PREFIX /home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo_description)
+  set(arlo_gazebo_description_DEVEL_PREFIX /home/lab/wang_ws/world_reader/devel)
   set(arlo_gazebo_description_INSTALL_PREFIX "")
   set(arlo_gazebo_description_PREFIX ${arlo_gazebo_description_DEVEL_PREFIX})
 else()
   set(arlo_gazebo_description_SOURCE_PREFIX "")
   set(arlo_gazebo_description_DEVEL_PREFIX "")
-  set(arlo_gazebo_description_INSTALL_PREFIX /home/lab/wang_ws/interbotix_ws/install)
+  set(arlo_gazebo_description_INSTALL_PREFIX /home/lab/wang_ws/world_reader/install)
   set(arlo_gazebo_description_PREFIX ${arlo_gazebo_description_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/lab/wang_ws/interbotix_ws/install/lib;/home/lab/realsense_ws/devel/lib;/home/lab/fetch_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/lab/wang_ws/world_reader/install/lib;/home/lab/realsense_ws/devel/lib;/home/lab/fetch_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

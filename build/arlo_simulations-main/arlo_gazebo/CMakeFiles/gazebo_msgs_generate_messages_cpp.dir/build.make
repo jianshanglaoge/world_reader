@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lab/wang_ws/interbotix_ws/src
+CMAKE_SOURCE_DIR = /home/lab/wang_ws/world_reader/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lab/wang_ws/interbotix_ws/build
+CMAKE_BINARY_DIR = /home/lab/wang_ws/world_reader/build
 
 # Utility rule file for gazebo_msgs_generate_messages_cpp.
 
@@ -63,10 +63,10 @@ arlo_simulations-main/arlo_gazebo/CMakeFiles/gazebo_msgs_generate_messages_cpp.d
 .PHONY : arlo_simulations-main/arlo_gazebo/CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/build
 
 arlo_simulations-main/arlo_gazebo/CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/clean:
-	cd /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo && $(CMAKE_COMMAND) -P CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/cmake_clean.cmake
+	cd /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo && $(CMAKE_COMMAND) -P CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/cmake_clean.cmake
 .PHONY : arlo_simulations-main/arlo_gazebo/CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/clean
 
 arlo_simulations-main/arlo_gazebo/CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/depend:
-	cd /home/lab/wang_ws/interbotix_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lab/wang_ws/interbotix_ws/src /home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_gazebo /home/lab/wang_ws/interbotix_ws/build /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_gazebo/CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lab/wang_ws/world_reader/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lab/wang_ws/world_reader/src /home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_gazebo /home/lab/wang_ws/world_reader/build /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_gazebo/CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : arlo_simulations-main/arlo_gazebo/CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/depend
 

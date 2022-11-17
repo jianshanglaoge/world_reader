@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/lab/wang_ws/interbotix_ws/src
-# Build directory: /home/lab/wang_ws/interbotix_ws/build
+# Source directory: /home/lab/wang_ws/world_reader/src
+# Build directory: /home/lab/wang_ws/world_reader/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lab/wang_ws/interbotix_ws/src
+CMAKE_SOURCE_DIR = /home/lab/wang_ws/world_reader/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lab/wang_ws/interbotix_ws/build
+CMAKE_BINARY_DIR = /home/lab/wang_ws/world_reader/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ arlo_simulations-main/arlo_navigation/CMakeFiles/_catkin_empty_exported_target.d
 .PHONY : arlo_simulations-main/arlo_navigation/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 arlo_simulations-main/arlo_navigation/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_navigation && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_navigation && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : arlo_simulations-main/arlo_navigation/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 arlo_simulations-main/arlo_navigation/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/lab/wang_ws/interbotix_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lab/wang_ws/interbotix_ws/src /home/lab/wang_ws/interbotix_ws/src/arlo_simulations-main/arlo_navigation /home/lab/wang_ws/interbotix_ws/build /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_navigation /home/lab/wang_ws/interbotix_ws/build/arlo_simulations-main/arlo_navigation/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lab/wang_ws/world_reader/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lab/wang_ws/world_reader/src /home/lab/wang_ws/world_reader/src/arlo_simulations-main/arlo_navigation /home/lab/wang_ws/world_reader/build /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_navigation /home/lab/wang_ws/world_reader/build/arlo_simulations-main/arlo_navigation/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : arlo_simulations-main/arlo_navigation/CMakeFiles/_catkin_empty_exported_target.dir/depend
 
