@@ -24,7 +24,7 @@ import PIL
 import ros_numpy
 # This script uses listens to the contact_graspnet topic over the ROS Brigde, 
 # unpacks the serialized Float32MultiArray msg
-world='world10'
+world='world1'
 
 def callback_1(data):
   #plt.imshow(data)
@@ -64,4 +64,6 @@ def listener():
   rospy.spin()
 
 if __name__ == '__main__':
+  worldnum=sys.argv[1]
+  world='world'+worldnum
   listener()
