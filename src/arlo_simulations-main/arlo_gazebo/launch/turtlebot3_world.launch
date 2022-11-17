@@ -1,0 +1,84 @@
+<launch>
+  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="x_pos" default="-1.33"/>
+  <arg name="y_pos" default="0.55"/>
+  <arg name="z_pos" default="0.02"/>
+  <arg name="ns" default="wx250s"/>
+  <arg name="use_rviz" default="true"/>
+
+
+  <!-- <group ns="$(arg ns)"> -->
+
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+
+    <env name="GAZEBO_MODEL_PATH" value="/home/rosaholic/.gazebo/models/small_house/models/"/>
+    <env name="GAZEBO_RESOURCE_PATH" value="/home/rosaholic/.gazebo/models/small_house"/>
+    <arg name="world_name" value="small_house.world"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="paused" value="false"/>
+    <arg name="debug" value="true"/>
+    <arg name="verbose" value="true"/>
+
+  </include>
+
+  <param name="$(arg ns)/robot_description" command="$(find xacro)/xacro $(find arlo_gazebo_description)/urdf/turtlebot3_$(arg model).urdf.xacro"/>
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" ns="$(arg ns)" args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+  <!-- args="-urdf -model $(arg robot_model) -x 0 -y 0 -z .25 -param robot_description"/> -->
+
+  <!-- state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="$(arg ns)">
+  </node>
+
+  <!-- <include file="$(find arlo_gazebo)/launch/test_add.launch">
+    <arg name="use_rviz" default="true"/>
+    <arg name="ns" default="wx250s"/>
+  </include> -->
+
+  <!-- <include file="$(find interbotix_xsarm_moveit)/launch/xsarm_moveit.launch">
+    <arg name="use_rviz" default="true"/>
+    <arg name="robot_model"                       value="$(arg ns)"/>
+    <arg name="base_link_frame"                   value="$(arg robot_model)/base_link"/>
+    <arg name="show_ar_tag"                       value="true"/>
+    <arg name="use_world_frame"                   value="false"/>
+    <arg name="use_moveit_rviz"                   value="true"/>
+    <arg name="rviz_frame"                        value="$(arg robot_name)/map"/>
+    <arg name="use_gazebo"                        value="false"/>
+    <arg name="dof"                               value="5"/>
+    <arg name="custom_world"                      value="true"/>
+  </include> -->
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <env name="GAZEBO_MODEL_PATH" value="/home/rosaholic/.gazebo/models/small_house/models/"/>
+    <env name="GAZEBO_RESOURCE_PATH" value="/home/rosaholic/.gazebo/models/small_house:$(find interbotix_xsarm_gazebo)"/>
+    <arg name="world_name" value="small_house.world"/>
+    <arg name="use_sim_time"    value="true"/>
+    <arg name="gui"             value="true"/>
+    <arg name="headless"        value="false"/>
+    <arg name="paused"          value="true"/>
+    <arg name="debug"           value="true"/>
+    <arg name="verbose"         value="true"/>
+  </include>
+  <!-- <env name="GAZEBO_RESOURCE_PATH"              value="$(find interbotix_xsarm_gazebo)"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name"                        value="$(arg world_name)"/>
+    <arg name="gui"                               value="$(arg gui)" />
+    <arg name="debug"                             value="$(arg debug)" />
+    <arg name="paused"                            value="$(arg paused)"/>
+    <arg name="recording"                         value="$(arg recording)"/>
+    <arg name="use_sim_time"                      value="$(arg use_sim_time)"/>
+  </include> -->
+
+  <node
+  name="urdf_spawner"
+  pkg="gazebo_ros"
+  type="spawn_model"
+  respawn="false"
+  output="screen"
+  ns="$(arg robot_name)"
+  args="-urdf -model $(arg robot_model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description"/>
+
+</launch>

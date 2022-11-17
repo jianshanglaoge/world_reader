@@ -1,0 +1,26 @@
+<launch>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+<!--
+    <env name="GAZEBO_MODEL_PATH" value="$(find gazebo_ycb)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+-->
+<!--
+    <arg name="world_name" value="scripts/world_generator/Table22_c.world"/> -->
+    <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+
+    <arg name="world_name" value="worlds/Table1_c.world"/> -->
+    <arg name="paused" value="true"/>
+
+    <arg name="use_sim_time" value="true"/>
+
+    <arg name="gui" value="true"/>
+
+    <arg name="recording" value="false"/>
+
+    <arg name="debug" value="false"/>
+
+  </include>
+
+</launch>

@@ -1,0 +1,3 @@
+NavfnROS:
+  allow_unknown: false
+  global_frame: wx250s/map

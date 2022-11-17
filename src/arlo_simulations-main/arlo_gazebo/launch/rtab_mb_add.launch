@@ -1,0 +1,256 @@
+<launch>
+  <!-- <node
+  ns="$(arg ns)"
+  pkg= "teleop_twist_keyboard"
+  type="teleop_twist_keyboard.py"
+  name="teleop"
+  output="screen"
+  /> -->
+  
+
+  <!-- <node ns="$(arg ns)" pkg= "gmapping" type="slam_gmapping"
+  name="g_mapping">
+  
+  <param name="base_frame" value="$(arg ns)/base_footprint"/>
+  <param name="odom_frame" value="$(arg ns)/odom"/>
+  <param name="map_frame"  value="$(arg ns)/map"/>
+  <param name="scan"       value="$(arg ns)/scan"/>
+  <param name="map_update_interval" value="2.0"/>
+  <param name="maxUrange" value="4.0"/>
+  <param name="minimumScore" value="100"/>
+  <param name="linearUpdate" value="0.2"/>
+  <param name="angularUpdate" value="0.2"/>
+  <param name="temporalUpdate" value="0.5"/>
+  <param name="delta" value="0.05"/>
+  <param name="lskip" value="0"/>
+  <param name="particles" value="120"/>
+  <param name="sigma" value="0.05"/>
+  <param name="kernelSize" value="1"/>
+  <param name="lstep" value="0.05"/>
+  <param name="astep" value="0.05"/>
+  <param name="iterations" value="5"/>
+  <param name="lsigma" value="0.075"/>
+  <param name="ogain" value="3.0"/>
+  <param name="srr" value="0.01"/>
+  <param name="srt" value="0.02"/>
+  <param name="str" value="0.01"/>
+  <param name="stt" value="0.02"/>
+  <param name="resampleThreshold" value="0.5"/>
+  <param name="xmin" value="-10.0"/>
+  <param name="ymin" value="-10.0"/>
+  <param name="xmax" value="10.0"/>
+  <param name="ymax" value="10.0"/>
+  <param name="llsamplerange" value="0.01"/>
+  <param name="llsamplestep" value="0.01"/>
+  <param name="lasamplerange" value="0.005"/>
+  <param name="lasamplestep" value="0.005"/>
+  </node> -->
+
+  <!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" ns="$(arg ns)">
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/move_base_params.yaml" command="load" />
+  </node> -->
+
+
+    <!-- locobotnav parameters -->
+  <arg name="robot_model"                       default="wx250s"/>
+  <arg name="robot_name"                        default="$(arg robot_model)"/>
+  <arg name="ns"                                default="wx250s"/>
+  <arg name="arm_model"                         default="$(arg robot_model)"/>
+  <arg name="use_lidar"                         default="true"/>
+  <arg name="show_gripper_bar"                  default="true"/>
+  <arg name="show_gripper_fingers"              default="true"/>
+  <arg name="external_urdf_loc"                 default=""/>
+  <arg name="localization"                      default="true"/>
+  <arg name="rtabmap_args"                      default=""/>
+  <arg name="use_rtabmapviz"                    default="false"/>
+  <arg name="rtabmapviz_args"                   default=""/>
+  <arg name="database_path"                     default="~/.ros/rtabmap.db"/>
+  <arg name="camera_tilt_angle"                 default="0.2618"/>
+  <arg name="use_rviz"                          default="true"/>
+  <arg name="rviz_frame"                        default="$(arg robot_model)/map"/>
+  <arg name="gui"                               default="true"/>
+  <arg name="debug"                             default="false"/>
+  <arg name="paused"                            default="true"/>
+  <arg name="recording"                         default="false"/>
+  <arg name="use_sim_time"                      default="true"/>
+  <arg name="dof"                               default="5"/>
+  <arg name="move_base_flex"                    default="false"/>
+
+
+  <arg     if="$(arg use_lidar)" name="rtabmap_default_args" default="$(arg rtabmap_args)
+                                                                      --RGBD/NeighborLinkRefining true
+                                                                      --RGBD/ProximityBySpace true
+                                                                      --RGBD/ProximityPathMaxNeighbors 10
+                                                                      --RGBD/AngularUpdate 0.01
+                                                                      --RGBD/LinearUpdate 0.01
+                                                                      --RGBD/LocalRadius 5
+                                                                      --RGBD/OptimizeFromGraphEnd false
+                                                                      --Grid/FromDepth false
+                                                                      --Grid/MaxObstacleHeight 0.7
+                                                                      --Grid/RayTracing true
+                                                                      --Grid/RangeMax 0
+                                                                      --Reg/Force3DoF true
+                                                                      --Reg/Strategy 1
+                                                                      --Mem/STMSize 30
+                                                                      --Icp/VoxelSize 0.05
+                                                                      --Icp/CorrespondenceRatio 0.4
+                                                                      --Icp/MaxCorrespondenceDistance 0.1
+                                                                      --StartNewMapOnLoopClosure=true"/>
+
+  <arg unless="$(arg use_lidar)" name="rtabmap_default_args" default="$(arg rtabmap_args)
+                                                                      --RGBD/NeighborLinkRefining true
+                                                                      --RGBD/AngularUpdate 0.01
+                                                                      --RGBD/LinearUpdate 0.01
+                                                                      --RGBD/LocalRadius 5
+                                                                      --RGBD/OptimizeFromGraphEnd false
+                                                                      --Grid/FromDepth true
+                                                                      --Grid/MaxObstacleHeight 0.7
+                                                                      --Grid/RayTracing true
+                                                                      --Reg/Force3DoF true
+                                                                      --Reg/Strategy 0
+                                                                      --Mem/STMSize 30"/>
+
+  <!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" ns="$(arg ns)">
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find arlo_navigation)/config/move_base/temp/move_base_params.yaml" command="load" />
+  </node> -->
+
+  <!-- Aligned_to_depth and PointCloud Generation-->
+  <include file="$(find arlo_gazebo)/launch/include/aligned_nodelet.launch.xml">
+    <arg name="robot_name"                        default="$(arg robot_name)"/>
+  </include>
+
+
+    <group ns="$(arg robot_name)/rtabmap">
+    <!-- rgbd_sync -->
+    <node
+      pkg="nodelet"
+      type="nodelet"
+      name="rgbd_sync"
+      output="screen"
+      args="standalone rtabmap_ros/rgbd_sync">
+      <param name="approx_sync"                   value="true"/>
+      <remap from="rgb/image"                     to="/$(arg robot_name)/camera/color/image_raw"/>
+      <remap from="depth/image"                   to="/$(arg robot_name)/camera/aligned_depth_to_color/image_raw"/>
+      <remap from="rgb/camera_info"               to="/$(arg robot_name)/camera/color/camera_info"/>
+      <remap from="rgbd_image"                    to="rgbd_image"/>
+    </node>
+    <!-- points_xyzrgb -->
+    <node
+      pkg="nodelet"
+      type="nodelet"
+      name="points_xyzrgb"
+      output="screen"
+      args="standalone rtabmap_ros/point_cloud_xyzrgb">
+      <param name="decimation"                    value="4"/>
+      <param name="voxel_size"                    value="0.05"/>
+      <param name="approx_sync"                   value="false"/>
+      <remap from="cloud"                         to="depth/color/voxels"/>
+    </node>
+    <!-- rtabmap_ros/obstacles_detection -->
+    <node
+      pkg="nodelet"
+      type="nodelet"
+      name="obstacle_detection"
+      output="screen"
+      args="standalone rtabmap_ros/obstacles_detection">
+      <param name="wait_for_transform"            value="true"/>
+      <param name="frame_id"                      value="$(arg robot_name)/base_footprint"/>
+      <remap from="cloud"                         to="depth/color/voxels"/>
+      <remap from="ground"                        to="depth/color/ground"/>
+      <remap from="obstacles"                     to="depth/color/obstacles"/>
+    </node>
+    <!-- rtabmap -->
+    <node
+      name="rtabmap"
+      pkg="rtabmap_ros"
+      type="rtabmap"
+      output="screen"
+      args="$(arg rtabmap_default_args)">
+      <param name="subscribe_depth"               value="false"/>
+      <param name="subscribe_rgb"                 value="false"/>
+      <param name="subscribe_rgbd"                value="true"/>
+      <param name="subscribe_stereo"              value="false"/>
+      <param name="subscribe_scan"                value="$(arg use_lidar)"/>
+      <param name="subscribe_scan_cloud"          value="false"/>
+      <param name="subscribe_scan_descriptor"     value="false"/>
+      <param name="subscribe_user_data"           value="false"/>
+      <param name="subscribe_odom_info"           value="true"/>
+      <param name="frame_id"                      value="$(arg robot_name)/base_footprint"/>
+      <param name="map_frame_id"                  value="$(arg robot_model)/map"/>
+      <param name="odom_frame_id"                 value="$(arg robot_name)/odom"/>
+      <param name="publish_tf"                    value="true"/>
+      <param name="odom_tf_angular_variance"      value="0.05"/>
+      <param name="odom_tf_linear_variance"       value="0.1"/>
+      <param name="odom_sensor_sync"              value="false"/>
+      <param name="wait_for_transform_duration"   value="0.2"/>
+      <param name="database_path"                 value="$(arg database_path)"/>
+      <param name="approx_sync"                   value="true"/>
+      <param name="queue_size"                    value="10"/>
+      <param name="tag_linear_variance"           value="0.0001"/>
+      <param name="tag_angular_variance"          value="9999"/>
+      <param name="Mem/InitWMWithAllNodes"        value="$(arg localization)"/>
+      <param     if="$(arg localization)" name="Mem/IncrementalMemory" value="false"/>
+      <param unless="$(arg localization)" name="Mem/IncrementalMemory" value="true"/>
+      <remap from="scan"                          to="/$(arg robot_name)/scan"/>
+      <!-- TODO: FIX INITIAL POSE TO -->
+      <remap from="initialpose"                   to="/$(arg robot_name)/initialpose"/>
+      <remap from="goal_out"                      to="/$(arg robot_name)/move_base_simple/goal"/>
+      <remap from="odom"                          to="/$(arg robot_name)/odom"/>
+    </node>
+    <!-- rtabmapviz -->
+    <node if="$(arg use_rtabmapviz)"
+      pkg="rtabmap_ros"
+      type="rtabmapviz"
+      name="rtabmapviz"
+      args="$(arg rtabmapviz_args)"
+      output="screen">
+      <param name="subscribe_rgbd"                value="true"/>
+      <param name="subscribe_scan"                value="$(arg use_lidar)"/>
+      <param name="frame_id"                      value="$(arg robot_name)/base_footprint"/>
+      <param name="odom_frame_id"                 value="$(arg robot_name)/odom"/>
+      <param name="wait_for_transform"            value="true"/>
+      <remap from="scan"                          to="/$(arg robot_name)/scan"/>
+    </node>
+  </group>
+
+  <!-- Move_base NOT USED.-->
+  <node
+    unless="$(arg move_base_flex)"
+    pkg="move_base"
+    type="move_base"
+    respawn="false"
+    name="move_base"
+    output="screen"
+    ns="$(arg robot_name)">
+    <rosparam     if="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/loco/local_costmap_all_params.yaml" command="load"/>
+    <rosparam     if="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/loco/global_costmap_all_params.yaml" command="load"/>
+    <rosparam unless="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/loco/local_costmap_depth_params.yaml" command="load"/>
+    <rosparam unless="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/loco/global_costmap_depth_params.yaml" command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/common_costmap_params.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/common_costmap_params.yaml" command="load" ns="local_costmap"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/local_planner_params.yaml"  command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/global_planner_params.yaml" command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/move_base_params.yaml"      command="load"/>
+
+    <param name="global_costmap/robot_base_frame" value="$(arg robot_name)/base_footprint"/>
+    <param name="local_costmap/global_frame"      value="$(arg robot_name)/odom"/>
+    <param name="local_costmap/robot_base_frame"  value="$(arg robot_name)/base_footprint"/>
+
+    <!-- <remap from="cmd_vel"                         to="mobile_base/commands/velocity"/> -->
+    <remap from="map"                             to="rtabmap/grid_map"/>
+    <!-- <remap from="odom"                            to="/$(arg robot_name)/odom"/> -->
+  </node>
+
+
+
+</launch>

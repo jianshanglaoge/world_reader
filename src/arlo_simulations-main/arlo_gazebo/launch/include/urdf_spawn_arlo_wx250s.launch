@@ -1,0 +1,60 @@
+<launch>
+    <!-- ns is robot_model. its for tf_frames -->
+  <arg name="ns"                                default="wx250s"/>  
+  
+  <!-- arguments for xsarm_moveit -->
+  <arg name="robot_model"                       default="$(arg ns)"/>
+  <arg name="robot_name"                        default="$(arg ns)"/>
+  <arg name="base_link_frame"                   default="arm_base_link"/>
+
+  <arg name="use_world_frame"                   default="false"/>
+  <arg name="external_urdf_loc"                 default="/home/danial/interbotix_ws/src/turtlebot3/turtlebot3_description/urdf/turtlebot3_waffle_pi.urdf.xacro"/>
+  <arg name="external_srdf_loc"                 default=""/>
+  <arg name="mode_configs"                      default="$(find interbotix_xsarm_moveit)/config/modes.yaml"/>
+  <arg name="use_moveit_rviz"                   default="true"/>
+  <arg name="rviz_frame"                        default="$(arg robot_name)/map"/>
+  <arg name="use_gazebo"                        default="false"/>
+  <arg name="use_actual"                        default="false"/>
+  <arg name="use_fake"                          default="false"/>
+  <arg name="dof"                               default="6"/> <!-- wx250s=6DOF -->
+
+  <arg name="use_position_controllers"          default="false"/>
+  <arg name="use_trajectory_controllers"        default="true"/>
+  <arg name="show_ar_tag"                       default="true"/>
+  <arg name="show_gripper_bar"                  default="true"/>
+  <arg name="show_gripper_fingers"              default="true"/>
+  <arg name="use_rviz"                          default="false"/>
+  <arg name="verbose"                           default="true"/>
+
+  <!-- robot starting location -->
+  <arg name="x_pos"                             default="-1.33"/>
+  <arg name="y_pos"                             default="0.55"/>
+  <arg name="z_pos"                             default="0.02"/>
+  
+  <include file="$(find interbotix_xsarm_descriptions)/launch/xsarm_description.launch">
+    <arg name="robot_model"                     value="$(arg robot_model)"/>
+    <arg name="robot_name"                      value="$(arg robot_name)"/>
+    <arg name="base_link_frame"                 value="$(arg base_link_frame)"/>
+    <arg name="show_ar_tag"                     value="$(arg show_ar_tag)"/>
+    <arg name="show_gripper_bar"                value="$(arg show_gripper_bar)"/>
+    <arg name="show_gripper_fingers"            value="$(arg show_gripper_fingers)"/>
+    <arg name="load_gazebo_configs"             value="true"/>
+    <arg name="use_world_frame"                 value="$(arg use_world_frame)"/>
+    <arg name="external_urdf_loc"               value="$(arg external_urdf_loc)"/>
+    <arg name="use_rviz"                        value="false"/>
+    <!-- <arg name="model"                             default="$(find arlo_gazebo_description)/urdf/turtlebot3_waffle_pi.urdf.xacro"/> -->
+  </include>
+
+
+  <!-- x y x params for spawn -->
+  <node name="urdf_spawner"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    respawn="false"
+    output="screen"
+    ns="$(arg robot_name)"
+    args="-urdf -param robot_description
+    -model $(arg robot_model) 
+    -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) " 
+  />
+</launch>

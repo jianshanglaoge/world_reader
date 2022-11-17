@@ -1,0 +1,8 @@
+prefix=/home/lab/wang_ws/interbotix_ws/devel
+
+Name: arlo_gazebo_description
+Description: Description of arlo_gazebo_description
+Version: 1.2.6
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: urdf xacro

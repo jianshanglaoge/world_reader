@@ -1,0 +1,102 @@
+<launch>
+<!-- 
+
+Simulate arlo base with a realsense camera plugin.
+
+-->
+    <!-- ns is robot_model. its for tf_frames -->
+  <arg name="ns"                                default="wx250s"/>  
+  <arg name="isolate"                           default="false"/>  
+  <arg name="move_base_flex"                    default="false"/>
+  <arg name="teleop"                            default="false"/>
+
+  <!-- URDF args -->
+  <arg name="robot_model"                       default="$(arg ns)"/>
+  <arg name="robot_name"                        default="$(arg ns)"/>
+  <arg name="update_rate"                       default="15"/>
+  <arg name="arm"                               default="false"/>
+  <arg name="base_link_frame"                   default="arm_base_link"/>
+
+  <!-- rviz params -->
+  <arg name="rviz_frame"                        default="$(arg robot_name)/map"/>
+  <arg name="arlo_rviz"                         default="true"/>
+
+  <!-- arguments for gazebo -->
+  <arg name="world_name"                        default="worlds/small_house.world"/>
+  <arg name="gui"                               default="true"/>
+  <arg name="debug"                             default="false"/> 
+  <arg name="paused"                            default="true"/>
+  <arg name="recording"                         default="false"/>
+  <arg name="use_sim_time"                      default="true"/>
+  <arg name="extra_gazebo_args"                 default=""/>
+  
+  <!-- rtabmap arg -->
+  <arg name="use_rtabmapviz"                    default="false"/> <!-- use rtabmapviz to enable mapping of the gazebo world. it is possible to enable mapping without the GUI. TODO.-->
+  
+  <!-- robot starting location -->
+  <arg name="x_pos" default="-1.33"/>
+  <arg name="y_pos" default="0.55"/>
+  <arg name="z_pos" default="0.02"/>
+
+
+  <arg name="model"                             default="$(find arlo_gazebo_description)/urdf/turtlebot3_waffle_pi.urdf.xacro
+                                                         robot_name:=$(arg robot_name)
+                                                         arm_model:=$(arg ns)
+                                                         base_link_frame:=$(arg base_link_frame)
+                                                         update_rate:=$(arg update_rate)
+                                                         arm:=false
+                                                         "/>
+
+  <param name="$(arg robot_name)/robot_description" command="xacro $(arg model)" />
+
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <env name="GAZEBO_MEDIA_PATH"                 value="$(find aws_robomaker_small_house_world)"/>
+    <arg name="world_name"                        value="$(arg world_name)"/>
+    <arg name="gui"                               value="$(arg gui)" />
+    <arg name="debug"                             value="$(arg debug)" />
+    <arg name="paused"                            value="$(arg paused)"/>
+    <arg name="recording"                         value="$(arg recording)"/>
+    <arg name="use_sim_time"                      value="$(arg use_sim_time)"/>
+    <arg name="extra_gazebo_args"                 value="$(arg extra_gazebo_args)"/>
+  </include>
+  
+
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher"
+    ns="$(arg robot_name)">
+  </node>
+
+    <!-- x y x params for spawn -->
+  <node name="urdf_spawner"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    respawn="false"
+    output="screen"
+    ns="$(arg robot_name)"
+    args="-urdf -model $(arg robot_model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" 
+  />
+
+  <!-- rtabmap 
+  There are tons of parameters that can be changed in here. Not going to clutter the top level launch file.
+  -->
+  <include file="$(find arlo_gazebo)/launch/rtab_mb_add.launch">
+    <arg name="move_base_flex" value="$(arg move_base_flex)"/>
+  </include>
+
+  <!-- teleop
+  here just for convenience. you can launch regular 
+  'roslaunch teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=wx250s/cmd_vel' 
+  -->
+  <include if="$(arg teleop)"
+    file="$(find arlo_gazebo)/launch/teleop_key_sim.launch">
+  </include>
+
+  <!-- rviz -->
+  <include if="$(arg arlo_rviz)" file="$(find arlo_mbf)/launch/rviz.launch">
+    <!-- <arg name="rviz_frame" value="$(arg rviz_frame)"/> -->
+  </include>
+
+</launch>

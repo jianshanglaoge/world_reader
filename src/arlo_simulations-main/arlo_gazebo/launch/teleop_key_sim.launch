@@ -1,0 +1,9 @@
+<launch>
+  <arg name="robot_name" default="wx250s"/>
+  <param name="model" value="waffle_pi"/>
+
+  <!-- teleop -->
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_key" output="screen" ns="$(arg robot_name)" launch-prefix="xterm -e"> <!-- using xterm because its nicer-->
+  </node>
+
+</launch>

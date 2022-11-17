@@ -1,0 +1,16 @@
+<package>
+  <description brief="contact_graspnet_msgs">
+
+     contact_graspnet_msgs
+
+  </description>
+  <author>Danial Dunson</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/contact_graspnet_msgs</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="std_msgs"/>
+  <depend package="message_generation"/>
+
+</package>

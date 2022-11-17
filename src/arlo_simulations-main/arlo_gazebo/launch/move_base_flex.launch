@@ -1,0 +1,66 @@
+<launch>
+<!-- 
+  Not sure why this is here. It's not used.
+Need to manually set the <arg> "move_base_flex" to true in the arlo_wx250s_sim.launch file.
+Launch Seperately. Develop a SMACH State Machine to handle the move_base_flex. Just a template for now.
+
+MBF author's implimentation:
+  see: https://github.com/uos/ceres_robot/tree/master/ceres_navigation
+-->
+  <arg name="model" default="waffle_pi"/>
+  <arg name="robot_name" default="wx250s"/>
+  <arg name="use_lidar" default="true"/>
+
+  <node name="move_base_flex" 
+    ns="$(arg robot_name)" 
+    pkg="mbf_costmap_nav" 
+    type="mbf_costmap_nav" 
+    required="true" 
+    output="screen">
+    <rosparam     if="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/loco/local_costmap_all_params.yaml" command="load"/>
+    <rosparam     if="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/loco/global_costmap_all_params.yaml" command="load"/>
+    <rosparam unless="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/loco/local_costmap_depth_params.yaml" command="load"/>
+    <rosparam unless="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/loco/global_costmap_depth_params.yaml" command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/common_costmap_params.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/common_costmap_params.yaml" command="load" ns="local_costmap"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/local_planner_params.yaml"  command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/global_planner_params.yaml" command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/loco/move_base_params.yaml"      command="load"/>
+    
+
+
+    <param name="local_costmap/robot_base_frame"  value="$(arg robot_name)/base_footprint"/>
+    <param name="global_costmap/robot_base_frame" value="$(arg robot_name)/base_footprint"/>
+
+    <!-- <param name="global_frame"                    value="$(arg robot_name)/map"/> -->
+    <param name="robot_frame"                     value="$(arg robot_name)/base_footprint"/>
+
+    <param name="global_costmap/robot_base_frame" value="$(arg robot_name)/base_footprint"/>
+    <!-- <param name="global_costmap/global_frame"     value="$(arg robot_name)/map"/> -->
+
+    <param name="global_frame"                    value="$(arg robot_name)/map"/>
+    <param name="map_frame"                       value="$(arg robot_name)/map"/>
+
+    <param name="local_costmap/global_frame"      value="$(arg robot_name)/odom"/>
+
+
+    <!-- <remap from="cmd_vel"                         to="mobile_base/commands/velocity"/> -->
+    <remap from="map"                             to="rtabmap/grid_map"/>
+    <remap from="odom"                            to="$(arg robot_name)/odom"/>
+  </node>
+
+  <node name="move_base_legacy_relay" 
+    ns="$(arg robot_name)" 
+    pkg="mbf_costmap_nav" 
+    type="move_base_legacy_relay.py">
+    <rosparam file="$(find arlo_mbf)/param/default_planner.yaml" command="load"/>
+    <param name="base_local_planner" value="TrajectoryPlannerROS"/>
+    <param name="base_global_planner" value="NavfnROS"/>
+    <param name="global_frame" value="wx250s/map"/>
+    <remap from="map" to="wx250s/map"/>
+  </node>
+
+</launch>
+
+
+<!-- turtlebot_mbf implimentation here:  https://github.com/Rayman/arlo_mbf-->

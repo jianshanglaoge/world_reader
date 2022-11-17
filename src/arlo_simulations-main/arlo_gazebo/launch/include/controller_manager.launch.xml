@@ -1,0 +1,39 @@
+<launch>
+<!-- initializes the trajectory or position controller with interbotix configuration. -->
+    <arg name="robot_name"                  default="wx250s"/>
+    <arg name="robot_model"                 default="$(arg robot_name)"/>
+    <arg name="use_position_controllers"    default="false"/>
+    <arg name="use_trajectory_controllers"  default="false"/>
+    <arg name="dof"                         default="6"/>
+
+    <group if="$(arg use_trajectory_controllers)">
+
+        <rosparam file="$(find interbotix_xsarm_gazebo)/config/trajectory_controllers/$(arg robot_model)_trajectory_controllers.yaml" command="load" ns="$(arg robot_name)"/>
+
+        <node
+        name="controller_spawner"
+        pkg="controller_manager"
+        type="controller_manager"
+        respawn="false"
+        output="screen"
+        ns="$(arg robot_name)"
+        args="spawn arm_controller gripper_controller joint_state_controller"/>
+
+    </group>
+
+    <group if="$(arg use_position_controllers)">
+
+        <rosparam file="$(find interbotix_xsarm_gazebo)/config/position_controllers/$(arg robot_model)_position_controllers.yaml" command="load" ns="$(arg robot_name)"/>
+
+        <node name="controller_spawner"
+        pkg="controller_manager"
+        type="controller_manager"
+        respawn="false"
+        output="screen"
+        ns="$(arg robot_name)"
+        args="spawn joint_state_controller waist_controller shoulder_controller
+                    elbow_controller forearm_roll_controller wrist_angle_controller
+                    wrist_rotate_controller left_finger_controller right_finger_controller"/>
+
+    </group>
+</launch>

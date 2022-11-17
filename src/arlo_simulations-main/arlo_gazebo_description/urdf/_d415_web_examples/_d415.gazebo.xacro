@@ -1,0 +1,194 @@
+<!-- https://gitioc.upc.edu/rostutorials/gazebo_sensors_tutorial/-/blob/master/robot/sensors/_d415.urdf.xacro -->
+<robot name="sensor_d415"
+  xmlns:xacro="http://ros.org/wiki/xacro">
+  <gazebo reference="${ns}/${name}_link">
+    <xacro:if value="${flag_color}">
+      <sensor name="${name}_rgb_sensor" type="camera">
+        <pose frame="${name}_color_optical_frame">0 0 0 0 0 0</pose>
+        <camera name="${name}_color">
+          <horizontal_fov>1.211258501</horizontal_fov>          <!--69.4 deg = 1.211258501 rad -->
+          <!-- <aspect_ratio>1.777777778</aspect_ratio>                    16:9 -->
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>RGB_INT8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>${updaterate}</update_rate>
+        <visualize>1</visualize>
+        <plugin name="${name}_color_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>${name}/color</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>${ns}/${name}_color_optical_frame</frameName>
+          <hackBaseline>0.0</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </xacro:if>
+
+    <xacro:if value="${flag_ir}">
+      <sensor name="${name}_left_ired_sensor" type="camera">
+        <pose frame="${name}_left_ir_optical_frame">0 0 0 0 0 0</pose>
+        <camera name="${name}">
+          <horizontal_fov>1.211258501</horizontal_fov>          <!--69.4 deg = 1.211258501 rad -->
+          <!-- <aspect_ratio>1.777777778</aspect_ratio>                    16:9 -->
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>L_INT8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.05</stddev>
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>${updaterate}</update_rate>
+        <visualize>0</visualize>
+        <plugin name="{name}_left_ir_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>${name}/left_ir/</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>${ns}/${name}_left_ir_optical_frame</frameName>
+          <hackBaseline>0.0</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+
+      <sensor name="${name}_right_ired_sensor" type="camera">
+        <pose frame="${name}_right_ir_optical_frame">0 0 0 0 0 0</pose>
+        <camera name="${name}">
+          <horizontal_fov>1.211258501</horizontal_fov>          <!--69.4 deg = 1.211258501 rad -->
+          <aspect_ratio>1.777777778</aspect_ratio>                    16:9
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>L_INT8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.05</stddev>
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>${updaterate}</update_rate>
+        <visualize>0</visualize>
+        <plugin name="{name}_right_ir_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>${name}/right_ir/</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>${ns}/${name}_right_ir_optical_frame</frameName>
+          <hackBaseline>0.0</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </xacro:if>
+
+    <xacro:if value="${flag_depth}">
+      <sensor name="${name}_depth_sensor" type="depth">
+        <pose frame="${name}_depth_optical_frame">0 -0.03 0.004 0 0 0</pose>
+        <camera name="${name}">
+          <horizontal_fov>1.211258501</horizontal_fov>          <!--69.4 deg = 1.211258501 rad -->
+          <!-- <aspect_ratio>1.777777778</aspect_ratio>                    16:9 -->
+          <image>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.100</stddev>
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>${updaterate}</update_rate>
+        <visualize>0</visualize>
+        <plugin name="{name}_depth_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>${name}/depth/</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>${ns}/${name}_depth_optical_frame</frameName>
+
+          <hackBaseline>0.0</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </xacro:if>
+  </gazebo>
+
+    <!-- Load plugin to the model ("robot" in urdf format)
+    https://github.com/hcrlab/hcrl_gazebo/blob/0914000e6072a057325223154e94eae41a3176f2/robots/forky.gazebo.xacro -->
+  <!-- <gazebo>
+      <plugin name="${name}" filename="librealsense_gazebo_plugin.so">
+          <depthUpdateRate>${updaterate}</depthUpdateRate>
+          <colorUpdateRate>${updaterate}</colorUpdateRate>
+          <infraredUpdateRate>${updaterate}</infraredUpdateRate>
+          <depthTopicName>depth/image_raw</depthTopicName>
+          <depthCameraInfoTopicName>depth/camera_info</depthCameraInfoTopicName>
+          <colorTopicName>color/image_raw</colorTopicName>
+          <colorCameraInfoTopicName>color/camera_info</colorCameraInfoTopicName>
+          <infrared1TopicName>infra1/image_raw</infrared1TopicName>
+          <infrared1CameraInfoTopicName>infra1/camera_info</infrared1CameraInfoTopicName>
+          <infrared2TopicName>infra2/image_raw</infrared2TopicName>
+          <infrared2CameraInfoTopicName>infra2/camera_info</infrared2CameraInfoTopicName>
+          <colorOpticalframeName>${ns}/${name}_color_optical_frame</colorOpticalframeName>
+          <depthOpticalframeName>${ns}/${name}_depth_optical_frame</depthOpticalframeName>
+          <infrared1OpticalframeName>${ns}/${name}_infra1_optical_frame</infrared1OpticalframeName>
+          <infrared2OpticalframeName>${ns}/${name}_infra2_optical_frame</infrared2OpticalframeName>
+          <rangeMinDepth>0.2</rangeMinDepth>
+          <rangeMaxDepth>10.0</rangeMaxDepth>
+          <pointCloud>false</pointCloud>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <pointCloudCutoff>0.5</pointCloudCutoff>
+      </plugin>
+  </gazebo> -->
+</robot>

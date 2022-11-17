@@ -1,0 +1,36 @@
+<launch>
+  <arg name="ns" default="wx250s"/>
+  <arg name="use_rviz" default="true"/>
+  <arg name="use_lidar"                         default="true"/>
+
+  <node
+    pkg="move_base"
+    type="move_base"
+    respawn="false"
+    name="move_base"
+    output="screen"
+    ns="$(arg ns)">
+    <rosparam     if="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/local_costmap_all_params.yaml" command="load"/>
+    <rosparam     if="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/global_costmap_all_params.yaml" command="load"/>
+    <rosparam unless="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/local_costmap_depth_params.yaml" command="load"/>
+    <rosparam unless="$(arg use_lidar)" file="$(find arlo_navigation)/config/move_base/global_costmap_depth_params.yaml" command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/common_costmap_params.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/common_costmap_params.yaml" command="load" ns="local_costmap"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/local_planner_params.yaml"  command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/global_planner_params.yaml" command="load"/>
+    <rosparam file="$(find arlo_navigation)/config/move_base/move_base_params.yaml"      command="load"/>
+
+    <param name="global_costmap/robot_base_frame" value="$(arg ns)/base_link"/>
+    <param name="local_costmap/global_frame"      value="$(arg ns)/odom"/>
+    <param name="local_costmap/robot_base_frame"  value="$(arg ns)/base_link"/>
+    
+
+
+    <remap from="cmd_vel"                         to="cmd_vel"/> 
+    <remap from="map"                             to="rtabmap/grid_map"/>
+    <remap from="odom"                            to="odom"/>
+    <remap from="scan"                            to="scan"/>
+    
+  </node> 
+
+</launch>

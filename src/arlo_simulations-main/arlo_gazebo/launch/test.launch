@@ -1,0 +1,11 @@
+<launch>
+  <arg name="rosbridge_port" default="9090"/>
+  <arg name="rosbridge_address" default="0.0.0.0"/>
+    
+    
+    <include file="$(find rosbrideg_server)/launch/rosbridge_websocket.launch">
+       <arg name="port" value="$(arg rosbridge_port)"/>
+       <arg name="address" value="$(arg rosbridge_address)"/>
+    </include>
+    <node pkg="tf2_web_republisher" name="tf2_web_repblisher" output="screen" type="tf2_web_republisher"/>
+</launch>

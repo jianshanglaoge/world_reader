@@ -1,0 +1,53 @@
+<launch>
+
+  <arg name="robot_model"                       default="wx250s"/>
+  <arg name="robot_name"                        default="$(arg robot_model)"/>
+  <arg name="base_link_frame"                   default="$(arg robot_model)/arm_base_link"/>
+  <arg name="show_ar_tag"                       default="true"/>
+  <arg name="use_world_frame"                   default="false"/>
+  <arg name="external_urdf_loc"                 default=""/>
+  <arg name="external_srdf_loc"                 default=""/>
+  <arg name="mode_configs"                      default="$(find interbotix_xsarm_moveit_interface)/config/modes.yaml"/>
+  <arg name="use_moveit_rviz"                   default="true"/>
+  <arg name="rviz_frame"                        default="$(arg robot_model)/base_link"/>
+  <arg name="use_gazebo"                        default="false"/>
+  <arg name="use_actual"                        default="false"/>
+  <arg name="use_fake"                          default="false"/>
+  <arg name="dof"                               default="6"/>
+  <arg name="use_cpp_interface"                 default="false"/>
+  <arg name="moveit_interface_gui"              default="true"/>
+  <arg name="use_python_interface"              default="false"/>
+
+  <group if="$(arg use_cpp_interface)">
+
+    <node
+      name="moveit_interface"
+      pkg="interbotix_moveit_interface"
+      type="moveit_interface"
+      respawn="false"
+      output="screen"
+      ns="$(arg robot_name)"/>
+
+    <node if="$(arg moveit_interface_gui)"
+      name="moveit_interface_gui"
+      pkg="interbotix_moveit_interface"
+      type="moveit_interface_gui"
+      output="screen"
+      ns="$(arg robot_name)"/>
+
+  </group>
+
+  <node if="$(arg use_python_interface)"
+    name="moveit_python_interface"
+    pkg="interbotix_moveit_interface"
+    type="moveit_python_interface"
+    respawn="false"
+    output="screen"
+    ns="$(arg robot_name)">
+    <rosparam command="load"                      file="$(find interbotix_xsarm_moveit_interface)/config/$(arg robot_model).yaml"/>
+    <param name="robot_model"                     value="$(arg robot_model)"/>
+    <remap from="/attached_collision_object"      to="/$(arg robot_name)/attached_collision_object"/>
+    <remap from="/collision_object"               to="/$(arg robot_name)/collision_object"/>
+  </node>
+
+</launch>

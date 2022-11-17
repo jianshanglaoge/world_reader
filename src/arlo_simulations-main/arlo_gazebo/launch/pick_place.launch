@@ -1,0 +1,39 @@
+<launch>
+<arg name="robot_model"                       default="wx250s"/>
+<arg name="robot_name"                        default="$(arg robot_model)"/>
+<arg name="use_sim_time"                      default="true"/>
+<arg name="tester"                            default="false" doc="tester type [false, Beta, SERVICECALL]"/>
+
+<!-- <group unless="$(arg tester)" ns="$(arg robot_model)"> -->
+<group if="$(eval arg('tester') == 'false')" ns="$(arg robot_model)">
+  <node pkg="arlo_gazebo" type="pick_and_place.py" name="pick_and_place" output="screen">
+    <rosparam command="load"                      file="$(find interbotix_xsarm_moveit_interface)/config/$(arg robot_model).yaml"/>
+    <param name="robot_model"                     value="$(arg robot_model)"/>
+    <remap from="/attached_collision_object"      to="/$(arg robot_name)/attached_collision_object"/>
+    <remap from="/collision_object"               to="/$(arg robot_name)/collision_object"/>
+  </node>
+</group>
+
+<!-- src/turtlebot3_simulations/arlo_gazebo/scripts/contact_grspnet2movegroup.py -->
+<!-- <group if="$(arg tester)==beta" ns="$(arg robot_model)"> -->
+<group if="$(eval arg('tester') == 'Beta')" ns="$(arg robot_model)">
+  <node pkg="arlo_gazebo" type="contact_grspnet2movegroup.py" name="contact_grspnet2movegroup" output="screen">
+    <rosparam command="load"                      file="$(find interbotix_xsarm_moveit_interface)/config/$(arg robot_model).yaml"/>
+    <param name="robot_model"                     value="$(arg robot_model)"/>
+    <remap from="/attached_collision_object"      to="/$(arg robot_name)/attached_collision_object"/>
+    <remap from="/collision_object"               to="/$(arg robot_name)/collision_object"/>
+  </node>
+</group>
+
+
+<!-- <group if="$(eval arg('image_width') ==640)"> </group> -->
+
+<group if="$(eval arg('tester') == 'SERVICECALL')" ns="$(arg robot_model)">
+  <node pkg="arlo_gazebo" type="service_call.py" name="contact_grspnet2movegroup" output="screen">
+    <rosparam command="load"                      file="$(find interbotix_xsarm_moveit_interface)/config/$(arg robot_model).yaml"/>
+    <param name="robot_model"                     value="$(arg robot_model)"/>
+    <remap from="/attached_collision_object"      to="/$(arg robot_name)/attached_collision_object"/>
+    <remap from="/collision_object"               to="/$(arg robot_name)/collision_object"/>
+  </node>
+</group>
+</launch>

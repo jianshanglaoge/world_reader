@@ -1,0 +1,2 @@
+arlo_simulations-main/arlo_gazebo:arlo_simulations-main/arlo_gazebo_description:arlo_simulations-main/arlo_navigation:arlo_simulations-main/arlo_simulations
+-DCATKIN_DEVEL_PREFIX=/home/lab/wang_ws/interbotix_ws/devel -DCMAKE_INSTALL_PREFIX=/home/lab/wang_ws/interbotix_ws/install -G Unix Makefiles

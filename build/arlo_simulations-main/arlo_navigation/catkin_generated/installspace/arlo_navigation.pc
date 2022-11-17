@@ -1,0 +1,8 @@
+prefix=/home/lab/wang_ws/interbotix_ws/install
+
+Name: arlo_navigation
+Description: Description of arlo_navigation
+Version: 1.2.6
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

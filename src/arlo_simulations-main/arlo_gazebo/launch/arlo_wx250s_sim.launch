@@ -1,0 +1,138 @@
+<launch>
+<!-- 
+Simulate arlo with an attatched wx250s gripper arm. 
+It starts gazebo and spawns the robot with the necessary plugins.
+
+mapping service can be launched seperately.
+
+rosbridge and teleop windows are launchable in here.
+-->
+    <!-- ns is robot_model. its for tf_frames -->
+  <arg name="ns"                                default="wx250s"/>  
+  <arg name="move_base_flex"                    default="false"/>
+  <arg name="teleop"                            default="False"/>
+  <arg name="world_modifier"                    default="" doc="gazebo_world type ['', EMPTY]"/>
+
+  
+  <!-- rosbridge parameters -->
+  <arg name="rosbridge"                         default="true"/>
+  <arg name="rosbridge_port"                    default="9090" />
+  <arg name="rosbridge_address"                 default="0.0.0.0" />
+  
+  <!-- arguments for xsarm_moveit -->
+  <arg name="robot_model"                       default="$(arg ns)"/>
+  <arg name="robot_name"                        default="$(arg ns)"/>
+  <arg name="base_link_frame"                   default="arm_base_link"/>
+
+  <arg name="use_world_frame"                   default="false"/>
+  <arg name="external_urdf_loc"                 default="$(find arlo_gazebo_description)/urdf/turtlebot3_waffle_pi.urdf.xacro"/>
+  <arg name="external_srdf_loc"                 default=""/>
+  <arg name="mode_configs"                      default="$(find interbotix_xsarm_moveit)/config/modes.yaml"/>
+  <arg name="use_moveit_rviz"                   default="true"/>
+  <arg name="rviz_frame"                        default="$(arg robot_name)/map"/>
+  <arg name="use_gazebo"                        default="false"/>
+  <arg name="use_actual"                        default="false"/>
+  <arg name="use_fake"                          default="false"/>
+  <arg name="dof"                               default="6"/> <!-- wx250s=6DOF -->
+
+  <arg name="use_position_controllers"          default="false"/>
+  <arg name="use_trajectory_controllers"        default="true"/>
+  <arg name="show_ar_tag"                       default="true"/>
+  <arg name="show_gripper_bar"                  default="true"/>
+  <arg name="show_gripper_fingers"              default="true"/>
+  <arg name="use_rviz"                          default="false"/>
+  <arg name="extra_gazebo_args"                 default=""/>
+
+  <!-- arguments for gazebo -->
+  <arg name="world_name"                        default="worlds/small_house.world"/>
+  <arg name="gui"                               default="true"/>
+  <arg name="debug"                             default="false"/> 
+  <arg name="paused"                            default="true"/>
+  <arg name="recording"                         default="false"/>
+  <arg name="use_sim_time"                      default="true"/>
+
+  <!-- robot starting location -->
+  <arg name="x_pos" default="-1.33"/>
+  <arg name="y_pos" default="0.55"/>
+  <arg name="z_pos" default="0.02"/>
+
+  <env name="GAZEBO_RESOURCE_PATH" value="$(find interbotix_xsarm_gazebo)"/>
+
+  <include if="$(eval arg('world_modifier') == '')" file="$(find gazebo_ros)/launch/empty_world.launch">
+    <env name="GAZEBO_MEDIA_PATH"                 value="$(find aws_robomaker_small_house_world)"/>
+    <arg name="world_name"                        value="$(arg world_name)"/>
+    <arg name="gui"                               value="$(arg gui)" />
+    <arg name="debug"                             value="$(arg debug)" />
+    <arg name="paused"                            value="$(arg paused)"/>
+    <arg name="recording"                         value="$(arg recording)"/>
+    <arg name="use_sim_time"                      value="$(arg use_sim_time)"/>
+    <arg name="extra_gazebo_args"                 value="$(arg extra_gazebo_args)"/>
+  </include>
+
+  <include if="$(eval arg('world_modifier') == 'EMPTY')" file="$(find gazebo_ros)/launch/empty_world.launch">
+    <env name="GAZEBO_MEDIA_PATH"                 value="$(find aws_robomaker_small_house_world)"/>
+    <!-- <arg name="world_name"                        value="$(arg world_name)"/> -->
+    <arg name="gui"                               value="$(arg gui)" />
+    <arg name="debug"                             value="$(arg debug)" />
+    <arg name="paused"                            value="$(arg paused)"/>
+    <arg name="recording"                         value="$(arg recording)"/>
+    <arg name="use_sim_time"                      value="$(arg use_sim_time)"/>
+    <arg name="extra_gazebo_args"                 value="$(arg extra_gazebo_args)"/>
+  </include>
+
+  <include file="$(find arlo_gazebo)/launch/include/controller_manager.launch.xml">
+    <arg name="use_trajectory_controllers"        value="$(arg use_trajectory_controllers)"/>
+  </include>
+
+  <include file="$(find arlo_gazebo)/launch/include/urdf_spawn_arlo_wx250s.launch">
+      <arg name="robot_model"                       value="$(arg robot_model)"/>
+      <arg name="robot_name"                        value="$(arg robot_name)"/>
+      <arg name="base_link_frame"                   value="$(arg base_link_frame)"/>
+      <arg name="show_ar_tag"                       value="$(arg show_ar_tag)"/>
+      <arg name="show_gripper_bar"                  value="$(arg show_gripper_bar)"/>
+      <arg name="show_gripper_fingers"              value="$(arg show_gripper_fingers)"/>
+      <arg name="use_world_frame"                   value="$(arg use_world_frame)"/>
+      <arg name="external_urdf_loc"                 value="$(arg external_urdf_loc)"/>
+      <arg name="use_rviz"                          value="false"/> <!--rviz spawn in moveit-->
+  </include>
+
+  <!-- maybe create a cutdown version of this to keep in the package. -->
+  <include file="$(find interbotix_xsarm_moveit)/launch/xsarm_moveit.launch">
+    <arg name="robot_model"                       value="$(arg ns)"/>
+    <arg name="base_link_frame"                   value="$(arg base_link_frame)"/>
+    <arg name="external_urdf_loc"                 value="$(arg external_urdf_loc)"/>
+    <arg name="mode_configs"                      default="$(find interbotix_xsarm_moveit)/config/modes.yaml"/>
+    <arg name="show_ar_tag"                       value="$(arg show_ar_tag)"/>
+    <arg name="use_world_frame"                   value="$(arg use_world_frame)"/>
+    <arg name="use_moveit_rviz"                   value="$(arg use_moveit_rviz)"/> <!--use this one. don't spawn rviz twice using the interbotix files.-->
+    <arg name="rviz_frame"                        value="$(arg robot_name)/map"/>
+    <arg name="use_gazebo"                        value="false"/> <!-- we must use a custom launch file -->
+    <arg name="dof"                               value="6"/>
+  </include>
+
+  <!-- RVIZ -->
+  <!-- <arg name="command_args" value="-f $(arg rviz_frame) -d $(find arlo_gazebo)/rviz/arlo_gazebo_model.rviz" />
+  <node name="myrvizforgazebo" pkg="rviz" type="rviz" respawn="false"
+	args="$(arg command_args)" output="screen">
+    <rosparam command="load" file="$(find interbotix_xsarm_moveit)/config/kinematics.yaml"/>
+  </node> -->
+
+  <!-- rtabmap   -->
+  <include file="$(find arlo_gazebo)/launch/rtab_mb_add.launch">
+    <arg name="move_base_flex" value="$(arg move_base_flex)"/>
+  </include>
+
+  <!-- teleop -->
+  <include if="$(arg teleop)"
+    file="$(find arlo_gazebo)/launch/teleop_key_sim.launch">
+  </include>
+
+  <!-- configures the rosbridge for the contact_graspnet -->
+  <group if="$(arg rosbridge)">
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+      <arg name="port" value="$(arg rosbridge_port)"/>
+      <arg name="address" value="$(arg rosbridge_address)"/>
+    </include>
+    <node pkg="tf2_web_republisher" name="tf2_web_republisher" output="screen" type="tf2_web_republisher" />
+  </group>
+</launch>
